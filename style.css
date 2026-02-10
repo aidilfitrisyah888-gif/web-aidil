@@ -1,5 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800;900&display=swap');
 
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+
 :root {
     /* Palet Warna Neon Premium */
     --neon-blue: #00d2ff;
@@ -37,10 +47,6 @@ nav {
     backdrop-filter: blur(15px); 
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-}
-
-* {
-    box-sizing: border-box;
 }
 
 img {
@@ -760,40 +766,5 @@ img {
 
     body {
     overflow-x: hidden;
-    }
-
-  /* container utama */
-    .container,
-    .wrapper,
-    .content,
-    .hero {
-    width: 100%;
-    padding: 16px;
-    }
-
-  /* kalau pakai flex horizontal */
-    .row,
-    .flex,
-    .hero-content {
-    flex-direction: column;
-    align-items: center;
-    }
-
-  /* teks besar */
-    h1 {
-    font-size: 28px;
-    text-align: center;
-    }
-
-    h2 {
-    font-size: 22px;
-    text-align: center;
-    }
-
-  /* tombol */
-    button,
-    .btn {
-    width: 100%;
-    max-width: 300px;
     }
 }
