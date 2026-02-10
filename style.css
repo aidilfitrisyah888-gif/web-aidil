@@ -764,7 +764,29 @@ img {
 
 @media (max-width: 768px) {
 
-    body {
-    overflow-x: hidden;
+  /* kasih jarak kanan kiri */
+    section,
+    .container,
+    .wrapper,
+    .content {
+    padding-left: 16px;
+    padding-right: 16px;
+    }
+
+  /* kartu / foto biar ga mepet */
+    .card,
+    .image,
+    .photo,
+    img {
+    margin: 0 auto;
+    border-radius: 12px;
+    }
+
+  /* khusus gambar besar */
+    img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    display: block;
     }
 }
