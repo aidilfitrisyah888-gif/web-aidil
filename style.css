@@ -1,15 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800;900&display=swap');
 
-* {
-    box-sizing: border-box;
-}
-
-html, body {
-    max-width: 100%;
-    overflow-x: hidden;
-}
-
-
 :root {
     /* Palet Warna Neon Premium */
     --neon-blue: #00d2ff;
@@ -48,12 +38,6 @@ nav {
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
 }
-
-img {
-    max-width: 100%;
-    height: auto;
-}
-
 
 .nav-buttons {
     display: flex;
@@ -759,34 +743,5 @@ img {
     .ach-photos-display img {
         width: 80%; /* Foto lebih besar di mobile */
         height: auto;
-    }
-}
-
-@media (max-width: 768px) {
-
-  /* kasih jarak kanan kiri */
-    section,
-    .container,
-    .wrapper,
-    .content {
-    padding-left: 16px;
-    padding-right: 16px;
-    }
-
-  /* kartu / foto biar ga mepet */
-    .card,
-    .image,
-    .photo,
-    img {
-    margin: 0 auto;
-    border-radius: 12px;
-    }
-
-  /* khusus gambar besar */
-    img {
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    display: block;
     }
 }
