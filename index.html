@@ -7,9 +7,14 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="icon.jpeg">
 </head>
 <body>
-
+    <div class="progress-container">
+    <div class="progress-bar" id="myBar"></div>
+    </div>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
     <nav>
     <div class="logo">DX<span>SYHFTR</span></div>
     <div class="nav-buttons">
@@ -246,78 +251,98 @@
             <button class="btn-next"><i class="fas fa-arrow-right"></i></button>
         </div>
     </div>
+    <div class="visualizer-container">
+        <canvas id="visualizer"></canvas>
+    </div>
 
     <audio id="audioPlayer"></audio>
 </section>
 
-<section id="achievements" class="reveal">
+<section id="achievements">
     <h2 class="section-title">Achievements</h2>
+    
+    <div class="timeline-container">
+        <div class="timeline-line"></div>
 
-    <div class="ach-main-container">
-
-        <div class="ach-card-wrapper">
-            <div class="ach-photos-display">
-                <img src="sertif.jpeg" alt="Foto Diri Prestasi 1">
-                <img src="piala1.jpeg" alt="Sertifikat Prestasi 1">
-            </div>
-            <div class="ach-details">
-                <h3>Mobile Legends Competition</h3>
-                <p>Have participated in Mobile Legends competitions and won the following championships:</p>
-                <li>3rd place in the sub-district-level Mobile Legends competition</li>
-                <li>1st place in the sub-district-level Mobile Legends competition</li>
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="ach-card-wrapper">
+                <div class="ach-photos-display">
+                    <img src="sertif.jpeg" alt="Sertifikat ML">
+                    <img src="piala1.jpeg" alt="Piala ML">
+                </div>
+                <div class="ach-details">
+                    <h3>Mobile Legends Competition</h3>
+                    <p>Have participated in Mobile Legends competitions and won the following championships:</p>
+                    <ul class="ach-list">
+                        <li>3rd place in the sub-district-level Mobile Legends competition</li>
+                        <li>1st place in the sub-district-level Mobile Legends competition</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
-        <div class="ach-card-wrapper">
-            <div class="ach-photos-display">
-                <img src="paskib3.jpeg" alt="Foto Diri Prestasi 2">
-                <img src="paskib2.jpeg" alt="Sertifikat Prestasi 2">
-            </div>
-            <div class="ach-details">
-                <h3>Paskibra Competititon</h3>
-                <p>He also frequently participates in troop flag-raising competitions and has won the following championships:</p>
-                <li>Harapan Utama 3 Alkenzie Event</li><li>Madya 1 LBB Balaikota</li><li>Harapan Utama 1 Angkasa Event</li><li>Harapan Utama 3 ULBI Event</li>
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="ach-card-wrapper">
+                <div class="ach-photos-display">
+                    <img src="paskib3.jpeg" alt="Paskib Event 1">
+                    <img src="paskib2.jpeg" alt="Paskib Event 2">
+                </div>
+                <div class="ach-details">
+                    <h3>Paskibra Competition</h3>
+                    <p>Participated in troop flag-raising competitions and won:</p>
+                    <ul class="ach-list">
+                        <li>Harapan Utama 3 Alkenzie Event</li>
+                        <li>Madya 1 LBB Balaikota</li>
+                        <li>Harapan Utama 1 Angkasa Event</li>
+                        <li>Harapan Utama 3 ULBI Event</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
-        <div class="ach-card-wrapper">
-            <div class="ach-photos-display">
-                <img src="paska2.jpeg" alt="Foto Diri Prestasi 3">
-                <img src="paska1.jpeg" alt="Sertifikat Prestasi 3">
-            </div>
-            <div class="ach-details">
-                <h3>Paskibraka Kota Bandung</h3>
-                <p>I also participated in the flag raising task at the city hall in August 2025 at that time, as a Paskibraka.</p>
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="ach-card-wrapper">
+                <div class="ach-photos-display">
+                    <img src="paska2.jpeg" alt="Paskibraka 1">
+                    <img src="paska1.jpeg" alt="Paskibraka 2">
+                </div>
+                <div class="ach-details">
+                    <h3>Paskibraka Kota Bandung</h3>
+                    <p>I also participated in the flag raising task at the city hall in August 2025 as a Paskibraka.</p>
+                </div>
             </div>
         </div>
 
     </div>
 </section>
 
-<section id="contact">
-    <h2 class="section-title">Contact</h2>
-    <div class="social-links">
-        <a href="https://wa.me/628131437341" target="_blank" class="social-icon wa-bisnis" title="WA Bisnis">
-            <i class="fab fa-whatsapp-square"></i>
-            <span class="wa-label"></span>
-        </a>
+<section id="contact" class="reveal">
+    <h2 class="section-title">Connect With Me</h2>
+    <div class="social-main-wrapper">
+        <div class="social-links">
+            <a href="https://wa.me/628131437341" target="_blank" class="social-icon wa-bisnis" data-text="WA Bisnis">
+                <i class="fab fa-whatsapp-square"></i>
+            </a>
 
-        <a href="https://wa.me/6281394600686" target="_blank" class="social-icon wa-biasa" title="WA Personal">
-            <i class="fab fa-whatsapp"></i>
-            <span class="wa-label"></span>
-        </a>
+            <a href="https://wa.me/6281394600686" target="_blank" class="social-icon wa-biasa" data-text="Personal">
+                <i class="fab fa-whatsapp"></i>
+            </a>
 
-        <a href="https://instagram.com/forexxabinx" target="_blank" class="social-icon ig" title="Instagram">
-            <i class="fab fa-instagram"></i>
-        </a>
+            <a href="https://instagram.com/forexxabinx" target="_blank" class="social-icon ig" data-text="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
 
-        <a href="https://tiktok.com/@wwyansoka" target="_blank" class="social-icon tt" title="Tiktok">
-            <i class="fab fa-tiktok"></i>
-        </a>
+            <a href="https://tiktok.com/@wwyansoka" target="_blank" class="social-icon tt" data-text="Tiktok">
+                <i class="fab fa-tiktok"></i>
+            </a>
 
-        <a href="https://discord.com/users/1420010976161566854" target="_blank" class="social-icon dc" title="Discord">
-            <i class="fab fa-discord"></i>
-        </a>
+            <a href="https://discord.com/users/1420010976161566854" target="_blank" class="social-icon dc" data-text="Discord">
+                <i class="fab fa-discord"></i>
+            </a>
+        </div>
     </div>
 </section>
 

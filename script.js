@@ -169,3 +169,112 @@ window.addEventListener('scroll', () => {
     // Jalankan reveal on scroll
     reveal();
 });
+
+// ... kode-kode lama abang (fungsi music, carousel, dll) ada di sini ...
+
+// --- KODE CUSTOM CURSOR (TARUH DI PALING BAWAH) ---
+const cursorDot = document.querySelector(".cursor-dot");
+const cursorOutline = document.querySelector(".cursor-outline");
+
+window.addEventListener("mousemove", function (e) {
+    const posX = e.clientX;
+    const posY = e.clientY;
+
+    // Titik kecil langsung nempel di ujung mouse
+    cursorDot.style.left = `${posX}px`;
+    cursorDot.style.top = `${posY}px`;
+
+    // Ekor lingkaran pakai animasi biar ada efek "smooth trailing"
+    cursorOutline.animate({
+        left: `${posX}px`,
+        top: `${posY}px`
+    }, { duration: 400, fill: "forwards" }); // 400ms biar kerasa smooth-nya
+});
+
+// Fitur Tambahan: Kursor Membesar saat kena tombol/link
+const interactiveElements = document.querySelectorAll("a, button, .card-3d, .nav-btn, .social-icon");
+interactiveElements.forEach(el => {
+    el.addEventListener("mouseenter", () => {
+        cursorOutline.classList.add("cursor-hover");
+        cursorDot.style.transform = "translate(-50%, -50%) scale(0.5)"; // Titik mengecil biar estetik
+    });
+    el.addEventListener("mouseleave", () => {
+        cursorOutline.classList.remove("cursor-hover");
+        cursorDot.style.transform = "translate(-50%, -50%) scale(1)";
+    });
+});
+
+const observerOptions = {
+    threshold: 0.5
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            // Opsional: bikin garis timeline memanjang (harus tambah logika tinggi)
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.timeline-item').forEach(item => {
+    observer.observe(item);
+});
+
+window.onscroll = function() { moveProgressBar() };
+
+function moveProgressBar() {
+    var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    var scrolled = (winScroll / height) * 100;
+    document.getElementById("myBar").style.width = scrolled + "%";
+}
+
+window.addEventListener("scroll", function() {
+    const navbar = document.querySelector("nav");
+    if (window.scrollY > 50) { // Jika di-scroll lebih dari 50px
+        navbar.classList.add("scrolled");
+    } else {
+        navbar.classList.remove("scrolled");
+    }
+});
+
+const canvas = document.getElementById("visualizer");
+const ctx = canvas.getContext("2d");
+const audio = document.querySelector("audio"); // Sesuaikan dengan tag audio abang
+
+let audioSource;
+let analyser;
+
+audio.addEventListener("play", function() {
+    // Setup Audio Context (hanya jalan sekali)
+    if (!audioSource) {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        audioSource = audioContext.createMediaElementSource(audio);
+        analyser = audioContext.createAnalyser();
+        audioSource.connect(analyser);
+        analyser.connect(audioContext.destination);
+    }
+
+    analyser.fftSize = 128; // Jumlah batang (semakin besar semakin rapat)
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+    const barWidth = canvas.width / bufferLength;
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        analyser.getByteFrequencyData(dataArray);
+
+        for (let i = 0; i < bufferLength; i++) {
+            let barHeight = dataArray[i] / 2; // Tinggi batang sesuai nada
+            
+            // Warna batang (Gradasi Neon)
+            ctx.fillStyle = `rgb(0, 210, 255)`; // Warna Biru Neon
+            
+            // Gambar batangnya
+            ctx.fillRect(i * barWidth, canvas.height - barHeight, barWidth - 2, barHeight);
+        }
+        requestAnimationFrame(animate);
+    }
+    animate();
+});

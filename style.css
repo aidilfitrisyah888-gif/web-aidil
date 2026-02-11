@@ -27,7 +27,6 @@ body {
     color: #e0e0e0;
     font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
-    position: relative;
 }
 
 body::before {
@@ -38,51 +37,15 @@ body::before {
     width: 100%;
     height: 100%;
     /* Efek bintik-bintik halus */
-    background: 
-        linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
-        linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
-    pointer-events: none;
-    z-index: 9999; /* Garis ini di paling depan tapi transparan */
-    opacity: 0.1;
+    background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    z-index: -1; /* Di belakang konten */
     animation: starsMove 100s linear infinite;
 }
 
 @keyframes starsMove {
     from { transform: translateY(0); }
     to { transform: translateY(-1000px); }
-}
-
-/* --- EFEK CAHAYA AURORA (GLOWING ORBS) --- */
-body::after {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* Membuat dua lingkaran cahaya blur yang besar */
-    background: 
-        radial-gradient(circle at 20% 30%, rgba(0, 210, 255, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 80% 70%, rgba(255, 0, 127, 0.15) 0%, transparent 40%);
-    z-index: -2; /* Di bawah bintang, di atas background dasar */
-    animation: auroraMove 20s ease-in-out infinite alternate;
-    filter: blur(50px);
-}
-
-/* --- ANIMASI CAHAYA BERGOYANG --- */
-@keyframes auroraMove {
-    0% {
-        background-position: 0% 0%;
-        transform: scale(1);
-    }
-    50% {
-        background-position: 50% 50%;
-        transform: scale(1.2) rotate(5deg);
-    }
-    100% {
-        background-position: 100% 100%;
-        transform: scale(1) rotate(-5deg);
-    }
 }
 
 /* --- ANIMASI BACKGROUND BERGERAK --- */
@@ -99,18 +62,28 @@ body::after {
 }
 
 /* --- NAVBAR (DEEP GLASS) --- */
+/* --- NAVBAR AWAL (SAAT DI ATAS) --- */
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 8%;
+    padding: 25px 8%; /* Lebih lebar pas di atas */
     position: fixed;
     width: 100%;
     z-index: 1000;
-    background: rgba(15, 12, 41, 0.8); 
-    backdrop-filter: blur(15px); 
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    background: transparent; /* TRANSPARAN AWALNYA */
+    border-bottom: 1px solid transparent;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Biar transisinya smooth */
+}
+
+/* --- NAVBAR SAAT DI-SCROLL (EFEK KACA) --- */
+nav.scrolled {
+    padding: 12px 8%; /* Jadi lebih ramping pas di-scroll */
+    background: rgba(15, 12, 41, 0.7); /* Background gelap transparan */
+    backdrop-filter: blur(15px); /* EFEK KACA NYALA */
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
 }
 
 .nav-buttons {
@@ -673,43 +646,85 @@ nav {
 
 .btn-main:hover { transform: translateY(-5px); box-shadow: 0 0 30px var(--neon-pink); }
 
-/* --- CONTACT SECTION --- */
+/* --- CONTACT SOCIAL NEON --- */
 #contact {
     padding: 100px 0;
     text-align: center;
 }
 
-.social-links {
+.social-main-wrapper {
     display: flex;
     justify-content: center;
-    gap: 30px;
+    padding-top: 30px;
+}
+
+.social-links {
+    display: flex;
+    gap: 25px;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .social-icon {
-    font-size: 3.5rem; /* Ukuran pas, nggak kegedean */
-    color: white;
-    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    position: relative;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
 }
 
-/* Warna khusus Discord */
-.discord:hover { 
-    color: #5865F2; 
-    filter: drop-shadow(0 0 20px #5865F2); 
-    transform: scale(1.2) rotate(10deg); 
+/* Tooltip (Muncul pas hover) */
+.social-icon::after {
+    content: attr(data-text);
+    position: absolute;
+    bottom: -40px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    opacity: 0;
+    transition: 0.3s;
+    color: var(--neon-blue);
+    text-transform: uppercase;
 }
 
-/* Warna WhatsApp (Dua-duanya Hijau Menyala) */
-.whatsapp:hover, .whatsapp-alt:hover { 
-    color: #25D366; 
-    filter: drop-shadow(0 0 20px #25D366); 
-    transform: scale(1.2) rotate(-10deg); 
+.social-icon:hover::after {
+    opacity: 1;
+    bottom: -30px;
 }
 
-/* Instagram & TikTok tetap pakai yang lama karena sudah gahar */
-.instagram:hover { color: #E1306C; filter: drop-shadow(0 0 20px #E1306C); transform: scale(1.2) rotate(10deg); }
-.tiktok:hover { color: #00f2ea; filter: drop-shadow(0 0 20px #ff0050); transform: scale(1.2) rotate(-10deg); }
+/* Hover Effect per Sosmed */
+.wa-bisnis:hover { color: #25D366; box-shadow: 0 0 30px #25D366; border-color: #25D366; transform: translateY(-10px); }
+.wa-biasa:hover { color: #128C7E; box-shadow: 0 0 30px #128C7E; border-color: #128C7E; transform: translateY(-10px); }
+.ig:hover { color: #E1306C; box-shadow: 0 0 30px #E1306C; border-color: #E1306C; transform: translateY(-10px); }
+.tt:hover { color: #ff0050; box-shadow: 0 0 30px #ff0050; border-color: #ff0050; transform: translateY(-10px); }
+.dc:hover { color: #7289da; box-shadow: 0 0 30px #7289da; border-color: #7289da; transform: translateY(-10px); }
+
+/* Animasi Floating (Biar gak kaku) */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.social-icon {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Bedakan delay animasi tiap ikon biar gak barengan naiknya */
+.social-icon:nth-child(1) { animation-delay: 0s; }
+.social-icon:nth-child(2) { animation-delay: 0.5s; }
+.social-icon:nth-child(3) { animation-delay: 1s; }
+.social-icon:nth-child(4) { animation-delay: 1.5s; }
+.social-icon:nth-child(5) { animation-delay: 2s; }
 
 /* --- JS REVEAL EFFECT CLASS --- */
 .reveal {
@@ -737,90 +752,176 @@ nav {
     50% { transform: translateY(-10px) rotateY(2deg); }
 }
 
-/* --- SECTION ACHIEVEMENTS --- */
+/* --- SECTION ACHIEVEMENTS (NEW TIMELINE MODE) --- */
 #achievements {
-    padding: 80px 8%;
+    padding: 100px 8%;
+    position: relative;
 }
 
-.ach-main-container {
+.timeline-container {
+    position: relative;
+    max-width: 1100px;
+    margin: 50px auto;
+    padding: 40px 0;
+}
+
+/* GARIS TENGAH NEON (EFEK CAHAYA MENGALIR) */
+.timeline-line {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 100%;
+    /* Gradasi warna yang akan kita gerakkan */
+    background: linear-gradient(
+        to bottom, 
+        rgba(255, 255, 255, 0.1), 
+        var(--neon-blue), 
+        var(--neon-pink), 
+        rgba(255, 255, 255, 0.1)
+    );
+    background-size: 100% 200%; /* Membuat background lebih panjang untuk dianimasikan */
+    animation: lineFlow 3s linear infinite; /* Kecepatan aliran 3 detik */
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+    border-radius: 10px;
+}
+
+/* ANIMASI BIAR CAHAYANYA JALAN KE BAWAH */
+@keyframes lineFlow {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 0% 200%;
+    }
+}
+
+/* ITEM TIMELINE */
+.timeline-item {
+    position: relative;
+    width: 100%;
+    margin-bottom: 80px;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap; /* Agar otomatis pindah baris di layar kecil */
-    gap: 40px; /* Jarak antar card prestasi */
-    margin-top: 50px;
 }
 
+/* TITIK PENGHUBUNG */
+.timeline-dot {
+    position: absolute;
+    left: 50%;
+    top: 30px;
+    width: 20px;
+    height: 20px;
+    background: #0f0c29;
+    border: 3px solid var(--neon-blue);
+    border-radius: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    box-shadow: 0 0 15px var(--neon-blue);
+}
+
+/* CARD WRAPPER (Sama seperti style abang tapi lebih clean) */
 .ach-card-wrapper {
-    width: 380px; /* Lebar card prestasi */
-    background: rgba(0, 0, 0, 0.4); /* Background Glassmorphism */
-    backdrop-filter: blur(10px);
+    width: 450px;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(15px);
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
     padding: 25px;
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     text-align: center;
 }
 
-/* Efek Hover Card Keseluruhan */
 .ach-card-wrapper:hover {
     transform: translateY(-10px);
-    border-color: var(--neon-blue);
-    box-shadow: 0 0 40px rgba(0, 210, 255, 0.4);
+    border-color: var(--neon-pink);
+    box-shadow: 0 0 40px rgba(255, 0, 127, 0.3);
 }
 
-/* Container untuk 2 Foto */
+/* FOTO DISPLAY */
 .ach-photos-display {
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 .ach-photos-display img {
-    width: 150px; /* Ukuran foto */
-    height: 150px;
+    width: 140px;
+    height: 140px;
     object-fit: cover;
     border-radius: 15px;
-    border: 3px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.4s ease;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    transition: 0.3s;
 }
 
-/* Efek Hover pada Foto */
 .ach-photos-display img:hover {
-    transform: scale(1.08); /* Zoom halus */
-    border-color: var(--neon-pink);
-    box-shadow: 0 0 25px var(--neon-pink);
+    border-color: var(--neon-blue);
+    transform: scale(1.1) rotate(2deg);
 }
 
-/* Detail Penjelasan di Luar Foto */
+/* TEXT DETAILS */
 .ach-details h3 {
     color: var(--neon-blue);
-    font-size: 1.6rem;
-    font-weight: 800;
-    margin-bottom: 12px;
-    text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    text-transform: uppercase;
 }
 
-.ach-details p {
-    color: #e0e0e0;
-    font-size: 0.95rem;
-    line-height: 1.6;
+.ach-list {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    display: inline-block;
 }
 
-/* Responsif untuk Layar Kecil (Mobile) */
-@media (max-width: 768px) {
-    .ach-card-wrapper {
-        width: 100%; /* Lebar penuh di mobile */
-        max-width: 400px; /* Batasi lebar agar tidak terlalu besar */
+.ach-list li {
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.ach-list li::before {
+    content: "⚡";
+    margin-right: 10px;
+    font-size: 0.8rem;
+    color: var(--neon-pink);
+}
+
+/* --- LOGIKA ZIG-ZAG (DESKTOP) --- */
+@media (min-width: 992px) {
+    .timeline-item {
+        justify-content: flex-start; /* Item 1 di kiri */
+        padding-right: 50%;
     }
-    .ach-photos-display {
-        flex-direction: column; /* Foto berbaris vertikal di mobile */
-        align-items: center;
+    .timeline-item:nth-child(even) {
+        justify-content: flex-end; /* Item 2 di kanan */
+        padding-right: 0;
+        padding-left: 50%;
+    }
+}
+
+/* --- RESPONSIVE MOBILE --- */
+@media (max-width: 991px) {
+    .timeline-line {
+        left: 20px;
+        transform: none;
+    }
+    .timeline-dot {
+        left: 20px;
+    }
+    .timeline-item {
+        justify-content: flex-start;
+        padding-left: 50px;
+    }
+    .ach-card-wrapper {
+        width: 100%;
     }
     .ach-photos-display img {
-        width: 80%; /* Foto lebih besar di mobile */
-        height: auto;
+        width: 100px;
+        height: 100px;
     }
 }
 
@@ -872,4 +973,76 @@ nav {
     object-fit: cover;
     width: 100%;
     height: 100%;
+}
+
+/* --- CUSTOM CURSOR --- */
+.cursor-dot, .cursor-outline {
+    pointer-events: none; /* Biar gak ganggu klik tombol */
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 9999;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--neon-blue);
+    box-shadow: 0 0 10px var(--neon-blue);
+}
+
+.cursor-outline {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--neon-pink);
+    box-shadow: 0 0 15px var(--neon-pink);
+    transition: all 0.1s ease-out; /* Kecepatan ekor mengikuti mouse */
+}
+
+/* Efek pas kursor masuk ke tombol atau link */
+.cursor-hover {
+    transform: translate(-50%, -50%) scale(1.5);
+    background-color: rgba(255, 0, 127, 0.2);
+    border-color: var(--neon-blue);
+}
+
+@media (max-width: 768px) {
+    .cursor-dot, .cursor-outline {
+        display: none;
+    }
+}
+
+.progress-container {
+    position: fixed;
+    top: 0;
+    z-index: 10000; /* Di atas segalanya */
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.progress-bar {
+    height: 4px;
+    background: linear-gradient(to right, var(--neon-blue), var(--neon-pink));
+    box-shadow: 0 0 15px var(--neon-blue);
+    width: 0%; /* Start dari 0 */
+}
+
+.visualizer-container {
+    width: 100%;
+    height: 150px; 
+    display: flex;
+    justify-content: center; /* Memastikan canvas di tengah */
+    align-items: flex-end;   /* Batang joget dari bawah */
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+#visualizer {
+    width: 80%; /* Jangan 100% biar ada ruang napas di kiri kanan */
+    height: 100%;
+    filter: drop-shadow(0 0 15px var(--neon-blue)); /* Glow lebih kuat */
 }
