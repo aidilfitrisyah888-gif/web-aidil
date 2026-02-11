@@ -8,13 +8,23 @@ function playSong(songFile) {
     const audio = document.getElementById('audioPlayer');
     if (!audio) return;
 
-    if (audio.src.includes(songFile) && !audio.paused) {
-        audio.pause();
+    // 1. Cek apakah ini lagu yang sama
+    const isSameSong = audio.src.endsWith(songFile);
+
+    if (isSameSong) {
+        // Kalau lagu sama, tinggal toggle play/pause
+        if (audio.paused) {
+            audio.play().catch(e => console.log("Play delay"));
+        } else {
+            audio.pause();
+        }
     } else {
+        // Kalau lagu BEDA, baru ganti src
         audio.src = songFile;
+        audio.load(); // Paksa browser muat file baru
         audio.play().catch(error => {
-            console.log("Audio play diblokir:", error);
-            alert("Abangkuh, cek lagi file mp3 nya di folder ya!");
+            // Hapus alert, ganti console log saja biar gak ganggu user
+            console.log("Menunggu buffer musik...", error);
         });
     }
 }
@@ -241,7 +251,7 @@ window.addEventListener("scroll", function() {
 
 const canvas = document.getElementById("visualizer");
 const ctx = canvas.getContext("2d");
-const audio = document.querySelector("audio"); // Sesuaikan dengan tag audio abang
+const audio = document.getElementById('audioPlayer');
 
 let audioSource;
 let analyser;
